@@ -71,7 +71,7 @@ function differenceEvenOddWorker(...arr) {
         sumOddElements += arr[i];
     }
   }
-  
+ 
   return sumEvenElements - sumOddElements;
 }
 
@@ -96,6 +96,17 @@ function averageEvenElementsWorker(...arr) {
   return Number((sumEvenElements / counterEvenElements).toFixed(2));
 }
 
+// Task #3: Сonverter aggregator:
 function makeWork (arrOfArr, func) {
+  let maxWorkerResult = -Infinity;
+  
+  for (let i = 0; i < arrOfArr.length; i++) {
+    const result = func(...arrOfArr[i]);
 
+    if (result > maxWorkerResult) {
+      maxWorkerResult = result;
+    }
+  }
+  
+  return maxWorkerResult;
 }
