@@ -62,3 +62,85 @@ class DetectiveBook extends Book {
     this.type = "detective";
   }
 }
+
+// Task2: Library:
+class Library {
+  constructor(name) {
+    this.name = name;
+    this.books = [];
+  }
+
+  addBook(book) {
+    if (book.state > 30) {
+      this.books.push(book);
+    }
+  }
+
+  findBookBy(type, value) {
+    const findBook = this.books.find(item => item[type] === value);
+    return findBook ? findBook : null;
+  }
+
+  giveBookByName(bookName) {
+    const index = this.books.findIndex(book => book.name === bookName);
+    if (index !== -1) {
+      return this.books.splice(index, 1)[0];
+    }
+    
+    return null;
+  }
+}
+
+// Test:
+const library = new Library("Библиотека");
+
+library.addBook(
+  new NovelBook(
+    "Эрнест Хемингуэй", 
+    "Старик и море", 
+    1952, 
+    544)
+);
+
+library.addBook(
+  new FantasticBook(
+    "Герберт Уэллс", 
+    "Война миров", 
+    1897, 
+    288
+  )
+);
+library.addBook(
+  new DetectiveBook(
+    "Агата Кристи", 
+    "Убийство в Восточном экспрессе", 
+    1934, 
+    320
+  )
+);
+
+library.addBook(
+  new FantasticBook(
+    "Монтегю Джеймс", 
+    "Дневник мистера Пойнтера", 
+    1919, 
+    14
+  )
+);
+
+console.log(library);
+
+console.log(library.findBookBy("releaseDate", 1919).name); //"Дневник мистера Пойнтера"
+
+const book = library.giveBookByName("Война миров"); 
+console.log(book); // "Война миров"
+console.log(library);
+
+book.state = 50;
+console.log(book.state); //50
+
+book.fix();
+console.log(book.state); //75
+
+library.addBook(book);
+console.log(library);
